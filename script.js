@@ -7,6 +7,8 @@ navigator.vibrate(ms);
 }
 }
 
+/* ---------------- SCREENS ---------------- */
+
 function go(n){
 document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
 document.getElementById("s"+n).classList.add("active");
@@ -17,30 +19,22 @@ vibrate(30);
 
 const noBtn = document.getElementById("noBtn");
 
-function moveNo(){
+noBtn.addEventListener("click", ()=>{
+noBtn.style.left=Math.random()*70+"%";
+noBtn.style.top=Math.random()*60+"%";
 vibrate(20);
+});
 
-noBtn.style.left = Math.random()*70 + "%";
-noBtn.style.top = Math.random()*60 + "%";
-}
+/* ---------------- GAME 1 (HEARTS) ---------------- */
 
-noBtn.addEventListener("click", moveNo);
-noBtn.addEventListener("touchstart", moveNo);
-
-/* ---------------- GAME 1 ---------------- */
-
-function startGame1(){
+function startHearts(){
 go(3);
-spawnGame1();
-}
 
-function spawnGame1(){
-
-const g = document.getElementById("game1");
+const g=document.getElementById("game1");
 
 setInterval(()=>{
 
-const h = document.createElement("div");
+const h=document.createElement("div");
 h.className="heart";
 h.innerHTML="❤️";
 
@@ -64,15 +58,13 @@ clearInterval(fall);
 },30);
 
 function hit(){
-vibrate(30);
-
 score1++;
 document.getElementById("score1").innerText=score1+" / 15";
 h.remove();
+vibrate(30);
 
 if(score1>=15){
-go(4);
-spawnGame2();
+startTicTacToe();
 }
 }
 
@@ -82,76 +74,111 @@ h.ontouchstart=hit;
 },500);
 }
 
-/* ---------------- GAME 2 ---------------- */
+/* ---------------- TIC TAC TOE ---------------- */
 
-function spawnGame2(){
+let board = Array(9).fill("");
+let current = "X";
+let gameActive = true;
 
-const g=document.getElementById("game2");
+function startTicTacToe(){
+go(4);
 
-setInterval(()=>{
+board = Array(9).fill("");
+current = "X";
+gameActive = true;
 
-const d=document.createElement("div");
-d.className="dot";
-d.innerHTML="✨";
+const b=document.getElementById("board");
+b.innerHTML="";
 
-d.style.left=Math.random()*90+"%";
-d.style.top="-30px";
+for(let i=0;i<9;i++){
+const c=document.createElement("div");
+c.className="cell";
 
-g.appendChild(d);
+c.onclick=()=>move(i,c);
 
-let y=-30;
-
-let fall=setInterval(()=>{
-
-y+=5;
-d.style.top=y+"px";
-
-if(y>600){
-d.remove();
-clearInterval(fall);
+b.appendChild(c);
+}
 }
 
-},30);
+function move(i,cell){
 
-function hit(){
-vibrate(25);
+if(!gameActive || board[i] !== "") return;
 
-score2++;
-document.getElementById("score2").innerText=score2+" / 10";
-d.remove();
+board[i]=current;
+cell.innerText=current;
 
-if(score2>=10){
+vibrate(20);
+
+if(checkWin(current)){
 win();
+return;
+}
+
+if(board.every(x=>x!=="")){
+lose();
+return;
+}
+
+current = current==="X"?"O":"X";
+
+/* простая AI логика */
+setTimeout(()=>{
+aiMove();
+},300);
+}
+
+function aiMove(){
+
+if(!gameActive) return;
+
+let empty=[];
+board.forEach((v,i)=>{if(v==="") empty.push(i);});
+
+if(empty.length===0) return;
+
+let i = empty[Math.floor(Math.random()*empty.length)];
+
+board[i]="O";
+
+document.querySelectorAll(".cell")[i].innerText="O";
+
+if(checkWin("O")){
+lose();
 }
 }
 
-d.onclick=hit;
-d.ontouchstart=hit;
+function checkWin(p){
+const w=[
+[0,1,2],[3,4,5],[6,7,8],
+[0,3,6],[1,4,7],[2,5,8],
+[0,4,8],[2,4,6]
+];
 
-},600);
+return w.some(c=>c.every(i=>board[i]===p));
 }
 
 /* ---------------- FINAL ---------------- */
 
 function win(){
+gameActive=false;
 go(5);
 
 document.getElementById("finalTitle").innerText="умничка зайка";
-document.getElementById("finalText").innerText="система подтверждает успешное прохождение";
+document.getElementById("finalText").innerText="система подтверждает победу";
 
 vibrate([80,40,80]);
-
 kiss();
 }
 
 function lose(){
+gameActive=false;
 go(5);
 
 document.getElementById("finalTitle").innerText="иди грей нос";
-document.getElementById("finalText").innerText="доступ не получен";
+document.getElementById("finalText").innerText="система тебя победила";
 }
 
-/* ---------------- KISS ANIMATION ---------------- */
+/* ---------------- KISS ---------------- */
 
 function kiss(){
 const k=document.getElementById("kiss");
