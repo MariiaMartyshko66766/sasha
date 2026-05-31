@@ -3,124 +3,206 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Для Саши ❤️</title>
+<title>Recovery Protocol</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+:root{
+--bg:#0b1020;
+--panel:rgba(255,255,255,.05);
+--border:rgba(255,255,255,.08);
+--text:#f5f7fb;
+--muted:#8b95a7;
+--accent:#7c3aed;
+--accent2:#06b6d4;
+}
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Inter,sans-serif;
 }
 
 body{
-min-height:100vh;
+font-family:Inter,sans-serif;
+background:var(--bg);
+color:var(--text);
 overflow:hidden;
-background:#0f172a;
-display:flex;
-justify-content:center;
-align-items:center;
-color:white;
+min-height:100vh;
 }
 
-.bg{
+.background{
 position:fixed;
 inset:0;
-background:
-radial-gradient(circle at 20% 20%,#ff4ecd33,transparent 30%),
-radial-gradient(circle at 80% 30%,#7c3aed44,transparent 30%),
-radial-gradient(circle at 50% 80%,#22d3ee22,transparent 30%);
-animation:bgMove 10s infinite alternate;
+overflow:hidden;
 }
 
-@keyframes bgMove{
-from{transform:scale(1);}
-to{transform:scale(1.2);}
+.blur{
+position:absolute;
+border-radius:50%;
+filter:blur(100px);
+opacity:.5;
+}
+
+.blur.one{
+width:500px;
+height:500px;
+background:#7c3aed;
+top:-100px;
+left:-100px;
+}
+
+.blur.two{
+width:400px;
+height:400px;
+background:#06b6d4;
+right:-100px;
+bottom:-100px;
+}
+
+.container{
+position:relative;
+z-index:2;
+width:min(950px,90%);
+margin:auto;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 .card{
-position:relative;
-z-index:2;
-width:min(90%,700px);
+width:100%;
 padding:40px;
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(20px);
-border:1px solid rgba(255,255,255,.15);
-border-radius:30px;
-text-align:center;
-box-shadow:0 0 40px rgba(255,255,255,.08);
-}
-
-h1{
-font-size:clamp(2rem,5vw,4rem);
-margin-bottom:15px;
-}
-
-.subtitle{
-opacity:.8;
-margin-bottom:30px;
-}
-
-button{
-border:none;
-cursor:pointer;
-padding:14px 28px;
-border-radius:16px;
-font-size:1rem;
-transition:.2s;
-}
-
-.primary{
-background:linear-gradient(135deg,#ff4ecd,#7c3aed);
-color:white;
-}
-
-.secondary{
-background:white;
-color:#111;
-position:absolute;
-}
-
-button:hover{
-transform:scale(1.05);
+background:var(--panel);
+border:1px solid var(--border);
+backdrop-filter:blur(24px);
+border-radius:28px;
+box-shadow:0 20px 80px rgba(0,0,0,.4);
 }
 
 .hidden{
 display:none;
 }
 
-#buttons{
-display:flex;
-justify-content:center;
-gap:20px;
+.small{
+color:var(--muted);
+font-size:.9rem;
+letter-spacing:.15em;
+text-transform:uppercase;
+margin-bottom:12px;
+}
+
+h1{
+font-size:clamp(2.5rem,7vw,5rem);
+line-height:1;
+margin-bottom:16px;
+}
+
+.subtitle{
+color:var(--muted);
+font-size:1.05rem;
+line-height:1.7;
+max-width:650px;
+}
+
+.btn{
+border:none;
+cursor:pointer;
+padding:14px 22px;
+border-radius:14px;
+font-size:15px;
+font-weight:600;
+transition:.2s;
+}
+
+.primary{
+background:white;
+color:black;
+}
+
+.primary:hover{
+transform:translateY(-2px);
+}
+
+.secondary{
+background:rgba(255,255,255,.08);
+color:white;
+position:absolute;
+}
+
+.actions{
 position:relative;
 height:120px;
+margin-top:30px;
+display:flex;
+gap:16px;
+align-items:center;
+justify-content:center;
 }
 
-.reward{
-margin-top:25px;
-font-size:1.2rem;
-min-height:60px;
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:18px;
+margin-top:30px;
 }
 
-.progress{
-margin-top:25px;
-height:12px;
-background:rgba(255,255,255,.1);
+.metric{
+padding:22px;
+background:rgba(255,255,255,.03);
+border:1px solid rgba(255,255,255,.05);
+border-radius:18px;
+}
+
+.metric-title{
+font-size:.85rem;
+color:var(--muted);
+margin-bottom:12px;
+}
+
+.bar{
+height:8px;
+background:rgba(255,255,255,.08);
 border-radius:999px;
 overflow:hidden;
 }
 
-.bar{
+.fill{
 height:100%;
-width:0%;
-background:linear-gradient(90deg,#ff4ecd,#7c3aed);
-transition:.4s;
+width:20%;
+background:linear-gradient(90deg,var(--accent),var(--accent2));
+transition:.5s;
+}
+
+.log{
+margin-top:25px;
+padding:20px;
+border-radius:18px;
+background:#090d18;
+border:1px solid rgba(255,255,255,.05);
+font-family:ui-monospace, monospace;
+min-height:140px;
+}
+
+.log-line{
+margin:6px 0;
+color:#c9d1d9;
+}
+
+.success{
+color:#4ade80;
+}
+
+.warning{
+color:#facc15;
 }
 
 .footer{
-margin-top:15px;
-opacity:.7;
+margin-top:20px;
+color:var(--muted);
 font-size:.9rem;
 }
 
@@ -129,123 +211,169 @@ position:fixed;
 inset:0;
 background:rgba(0,0,0,.7);
 display:none;
-justify-content:center;
 align-items:center;
+justify-content:center;
 z-index:999;
 }
 
-.modal-content{
-max-width:600px;
-width:90%;
+.modal-card{
+width:min(700px,90%);
 padding:35px;
-border-radius:25px;
-background:#111827;
-border:1px solid rgba(255,255,255,.1);
-text-align:left;
-line-height:1.8;
+border-radius:24px;
+background:#0f172a;
+border:1px solid rgba(255,255,255,.08);
 }
 
-.heart{
+.modal-card h2{
+margin-bottom:20px;
+}
+
+.modal-card p{
+line-height:1.9;
+color:#cbd5e1;
+}
+
+canvas{
 position:fixed;
+inset:0;
 pointer-events:none;
-font-size:24px;
-animation:fall linear forwards;
 }
 
-@keyframes fall{
-to{
-transform:translateY(110vh);
-opacity:0;
+.image{
+margin-top:30px;
+height:220px;
+border-radius:20px;
+overflow:hidden;
+border:1px solid rgba(255,255,255,.08);
 }
+
+.image img{
+width:100%;
+height:100%;
+object-fit:cover;
 }
 </style>
 </head>
 <body>
 
-<div class="bg"></div>
-
-<div class="card" id="welcome">
-
-<h1>💖 LOVE OS v1.0</h1>
-
-<div class="subtitle">
-Экстренная терапия для Саши от Маши
+<div class="background">
+<div class="blur one"></div>
+<div class="blur two"></div>
 </div>
 
-<button class="primary" onclick="start()">
-Запустить лечение ✨
+<canvas id="canvas"></canvas>
+
+<div class="container">
+
+<div class="card" id="screen1">
+
+<div class="small">Recovery Protocol</div>
+
+<h1>Sasha.exe</h1>
+
+<p class="subtitle">
+Automated diagnostics detected an issue.
+The system appears functional but is operating below optimal conditions.
+Recommended action: initiate recovery sequence.
+</p>
+
+<div style="margin-top:30px">
+<button class="btn primary" onclick="startProtocol()">
+Run Recovery Protocol
+</button>
+</div>
+
+</div>
+
+<div class="card hidden" id="screen2">
+
+<div class="small">Confirmation</div>
+
+<h1>Recover faster?</h1>
+
+<p class="subtitle">
+The diagnostic engine strongly recommends accepting assistance.
+Declining is technically possible.
+</p>
+
+<div class="actions">
+
+<button class="btn primary" onclick="launchDashboard()">
+Yes
+</button>
+
+<button class="btn secondary" id="noBtn">
+No
 </button>
 
 </div>
 
-<div class="card hidden" id="question">
+</div>
 
-<h1>Саша, Маша тебя любит?</h1>
+<div class="card hidden" id="screen3">
 
-<div id="buttons">
+<div class="small">Dashboard</div>
 
-<button class="primary" onclick="accept()">
-Да 💖
+<h1>Recovery Center</h1>
+
+<div class="grid">
+
+<div class="metric">
+<div class="metric-title">Health</div>
+<div class="bar"><div class="fill" id="health"></div></div>
+</div>
+
+<div class="metric">
+<div class="metric-title">Mood</div>
+<div class="bar"><div class="fill" id="mood"></div></div>
+</div>
+
+<div class="metric">
+<div class="metric-title">Energy</div>
+<div class="bar"><div class="fill" id="energy"></div></div>
+</div>
+
+</div>
+
+<div class="image">
+<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop" alt="">
+</div>
+
+<div style="margin-top:25px">
+<button class="btn primary" onclick="applyFix()">
+Apply Fix
 </button>
-
-<button class="secondary" id="noBtn">
-Нет 😒
-</button>
-
 </div>
 
-</div>
-
-<div class="card hidden" id="machine">
-
-<h1>🎰 Love Machine</h1>
-
-<div class="subtitle">
-Генератор любви для Саши
-</div>
-
-<button class="primary" onclick="spin()">
-Получить дозу любви
-</button>
-
-<div class="reward" id="reward"></div>
-
-<div class="progress">
-<div class="bar" id="bar"></div>
-</div>
+<div class="log" id="log"></div>
 
 <div class="footer">
-Маша → ∞ → Саша ❤️
+Maintained by Masha.
 </div>
 
 </div>
 
-<div class="modal" id="secret">
-<div class="modal-content">
-<h2>🔓 Секретное послание</h2>
+</div>
 
+<div class="modal" id="modal">
+<div class="modal-card">
+
+<h2>Recovery Complete</h2>
+
+<p>
+Known issues:
 <br>
-
-<p>
-Саша ❤️
-</p>
-
-<p>
-Если ты это читаешь, значит добрался до секретного уровня.
-</p>
-
-<p>
-Я знаю, что сейчас тебе не очень хорошо.
-Но ты обязательно поправишься.
-</p>
-
-<p>
-А пока отдыхай, набирайся сил и помни:
-тебя очень сильно любят.
-</p>
-
-<p>
-Твоя Маша ❤️
+• still sick
+<br>
+• still stubborn
+<br><br>
+Resolved issues:
+<br>
+• unsupported
+<br>
+• forgotten
+<br><br>
+A personal support service remains active until further notice.
 </p>
 
 </div>
@@ -253,107 +381,120 @@ opacity:0;
 
 <script>
 
-console.log("Саша, хватит лазить в консоль 😤❤️");
-console.log("Маша всё равно любит тебя.");
+console.log(`
+Build Information
 
-const rewards = [
-"💖 +100 к выздоровлению",
-"🫂 Огромное объятие от Маши",
-"💋 Один виртуальный поцелуй",
-"🌷 Ты невероятно красивый",
-"⭐ Сегодня тебе разрешено отдыхать",
-"👑 Лучший парень",
-"❤️ Тебя очень любят",
-"☀️ Лучик тепла от Маши",
-"🐱 Бонусный котик мурчит для тебя",
-"🎁 Ты делаешь Машу счастливой"
-];
+Patient: Sasha
+Maintainer: Masha
+Status: Under active support
+`);
 
-let count = 0;
-
-function start(){
-welcome.classList.add("hidden");
-question.classList.remove("hidden");
-}
-
-const noBtn = document.getElementById("noBtn");
+const noBtn = document.getElementById('noBtn');
 
 function moveButton(){
+const x = Math.random() * (window.innerWidth - 180);
+const y = Math.random() * (window.innerHeight - 80);
 
-const maxX = window.innerWidth - 150;
-const maxY = window.innerHeight - 80;
-
-noBtn.style.left =
-Math.random() * maxX + "px";
-
-noBtn.style.top =
-Math.random() * maxY + "px";
+noBtn.style.left = x + 'px';
+noBtn.style.top = y + 'px';
 }
 
-noBtn.addEventListener("mouseenter", moveButton);
-noBtn.addEventListener("touchstart", moveButton);
+noBtn.addEventListener('mouseenter', moveButton);
+noBtn.addEventListener('touchstart', moveButton);
 
-function accept(){
-
-question.classList.add("hidden");
-machine.classList.remove("hidden");
-
-heartRain();
+function startProtocol(){
+screen1.classList.add('hidden');
+screen2.classList.remove('hidden');
 }
 
-function spin(){
-
-count++;
-
-reward.textContent =
-rewards[Math.floor(Math.random()*rewards.length)];
-
-bar.style.width =
-Math.min(count*10,100) + "%";
-
-if(count === 10){
-
-secret.style.display = "flex";
-
-heartRain();
-
+function launchDashboard(){
+screen2.classList.add('hidden');
+screen3.classList.remove('hidden');
 }
 
-if(count === 50){
+let progress = 20;
+let clicks = 0;
 
-reward.textContent =
-"🏆 Achievement unlocked: Самый залюбленный человек на планете";
+const fixes = [
+"Installed: Extra Sleep",
+"Patch applied: Warm Tea",
+"Dependency added: Masha",
+"Memory leak fixed",
+"Critical update installed",
+"Performance improved",
+"Background anxiety process terminated",
+"Support module loaded",
+"Recovery daemon started",
+"System morale increased"
+];
 
+function addLog(text,type=""){
+const div = document.createElement("div");
+div.className = "log-line " + type;
+div.textContent = "> " + text;
+log.prepend(div);
 }
 
+function applyFix(){
+
+clicks++;
+
+const msg = fixes[Math.floor(Math.random()*fixes.length)];
+
+addLog(msg,"success");
+
+progress += 8;
+
+health.style.width = Math.min(progress,100)+"%";
+mood.style.width = Math.min(progress+5,100)+"%";
+energy.style.width = Math.min(progress-5,100)+"%";
+
+if(clicks === 8){
+addLog("Support channel verified","warning");
 }
 
-function heartRain(){
-
-for(let i=0;i<60;i++){
-
-const heart =
-document.createElement("div");
-
-heart.className = "heart";
-heart.innerHTML = ["❤️","💖","💕","💗"][Math.floor(Math.random()*4)];
-
-heart.style.left =
-Math.random()*100+"vw";
-
-heart.style.top = "-50px";
-
-heart.style.animationDuration =
-(3 + Math.random()*4)+"s";
-
-document.body.appendChild(heart);
-
-setTimeout(()=>{
-heart.remove();
-},7000);
-
+if(clicks >= 10){
+document.getElementById("modal").style.display = "flex";
+launchParticles();
+}
 }
 
+function launchParticles(){
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+const particles = [];
+
+for(let i=0;i<120;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:-20,
+s:Math.random()*6+2,
+v:Math.random()*3+1
+});
+}
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+particles.forEach(p=>{
+ctx.fillStyle="rgba(255,255,255,.8)";
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.s,0,Math.PI*2);
+ctx.fill();
+
+p.y += p.v;
+});
+
+requestAnimationFrame(animate);
+}
+
+animate();
 }
 </script>
 
