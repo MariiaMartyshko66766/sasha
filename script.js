@@ -1,95 +1,110 @@
-let screen = 1;
+let score = 0;
+let interval;
+let running = false;
 
-function show(n){
-document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-document.getElementById("screen"+n).classList.add("active");
-screen=n;
+function vibrate(ms = 40){
+if ("vibrate" in navigator) {
+navigator.vibrate(ms);
+}
 }
 
-function next(n){
-show(n);
+function go(n){
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+document.getElementById("s"+n).classList.add("active");
+}
+
+function startGame(){
+vibrate(80);
+go(3);
+spawn();
 }
 
 const noBtn = document.getElementById("noBtn");
 
 function moveNo(){
-const x = Math.random() * (window.innerWidth - 120);
-const y = Math.random() * 300;
 
-noBtn.style.left = x + "px";
-noBtn.style.top = y + "px";
+vibrate(20);
+
+const maxX = window.innerWidth - 120;
+const maxY = 300;
+
+noBtn.style.left = Math.random()*maxX + "px";
+noBtn.style.top = Math.random()*maxY + "px";
 }
 
 noBtn.addEventListener("touchstart", moveNo);
 noBtn.addEventListener("click", moveNo);
 
-function love(){
-show(3);
-startGame();
-}
+function spawn(){
 
-let score = 0;
+if(running) return;
+running = true;
 
-function startGame(){
-const area = document.getElementById("gameArea");
+const area = document.getElementById("area");
 
-let interval = setInterval(()=>{
+interval = setInterval(()=>{
+
 const h = document.createElement("div");
 h.className = "heart";
 h.innerHTML = "❤️";
 
-h.style.left = Math.random()*90 + "%";
-h.style.top = "-30px";
+let x = Math.random() * (window.innerWidth - 50);
+let y = -30;
+
+h.style.left = x + "px";
+h.style.top = y + "px";
 
 area.appendChild(h);
 
 let fall = setInterval(()=>{
-let top = parseFloat(h.style.top);
-h.style.top = (top + 3) + "px";
 
-if(top > 500){
+y += 4;
+h.style.top = y + "px";
+
+if(y > window.innerHeight){
 h.remove();
 clearInterval(fall);
 }
+
 },30);
 
-h.ontouchstart = ()=>{
+function catchIt(){
+vibrate(30);
+
 score++;
 document.getElementById("score").innerText = score + " / 15";
 h.remove();
 
 if(score >= 15){
 clearInterval(interval);
+running = false;
 win();
 }
-};
-
-h.onclick = ()=>{
-score++;
-document.getElementById("score").innerText = score + " / 15";
-h.remove();
-
-if(score >= 15){
-clearInterval(interval);
-win();
 }
-};
 
-},500);
+h.addEventListener("click", catchIt);
+h.addEventListener("touchstart", catchIt);
+
+},400);
 }
 
 function win(){
-document.getElementById("resultTitle").innerText = "Победа";
-document.getElementById("resultText").innerText = "Купон на поцелуй активирован";
-show(4);
+
+vibrate([80,40,80]);
+
+document.getElementById("title").innerText = "Победа";
+document.getElementById("text").innerText = "Купон на поцелуй активирован";
+
+go(4);
 }
 
 function lose(){
-document.getElementById("resultTitle").innerText = "Саша лох";
-document.getElementById("resultText").innerText = "но всё равно любим";
-show(4);
+document.getElementById("title").innerText = "Саша лох";
+document.getElementById("text").innerText = "но всё равно любим";
+go(4);
 }
 
-function final(){
-show(5);
+function finish(){
+vibrate(100);
+go(5);
 }
