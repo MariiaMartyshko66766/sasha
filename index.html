@@ -1,141 +1,50 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Протокол восстановления</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Система</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="background">
-    <div class="blob blob1"></div>
-    <div class="blob blob2"></div>
+<div id="screen1" class="screen active">
+  <h1>Саша</h1>
+  <p>Вам пришло важное уведомление</p>
+  <button onclick="next(2)">Открыть</button>
 </div>
 
-<section id="start-screen" class="card">
+<div id="screen2" class="screen">
+  <h1>Вопрос</h1>
+  <p>Маша тебе нравится?</p>
 
-    <span class="tag">ПРОТОКОЛ ВОССТАНОВЛЕНИЯ</span>
-
-    <h1>Саша, система обнаружила проблему.</h1>
-
-    <p>
-        Последняя диагностика показала:
-        <br>
-        настроение ниже нормы,
-        <br>
-        энергии недостаточно,
-        <br>
-        требуется поддержка.
-    </p>
-
-    <button id="startBtn">
-        Запустить восстановление
-    </button>
-
-</section>
-
-<section id="question-screen" class="card hidden">
-
-    <span class="tag">ПОДТВЕРЖДЕНИЕ</span>
-
-    <h1>Хотите восстановиться быстрее?</h1>
-
-    <div class="buttons">
-
-        <button id="yesBtn">
-            Да
-        </button>
-
-        <button id="noBtn">
-            Нет
-        </button>
-
-    </div>
-
-</section>
-
-<section id="dashboard" class="card hidden">
-
-    <span class="tag">ЦЕНТР ВОССТАНОВЛЕНИЯ</span>
-
-    <h1>Панель состояния</h1>
-
-    <div class="stats">
-
-        <div class="stat">
-            <span>Настроение</span>
-            <div class="bar">
-                <div id="moodBar" class="fill"></div>
-            </div>
-        </div>
-
-        <div class="stat">
-            <span>Энергия</span>
-            <div class="bar">
-                <div id="energyBar" class="fill"></div>
-            </div>
-        </div>
-
-        <div class="stat">
-            <span>Выздоровление</span>
-            <div class="bar">
-                <div id="healthBar" class="fill"></div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="image-block">
-        <img src="images/sasha.jpg" alt="Саша">
-    </div>
-
-    <button id="fixBtn">
-        Применить улучшение
-    </button>
-
-    <div id="log" class="log"></div>
-
-</section>
-
-<div id="finalModal" class="modal">
-
-    <div class="modal-content">
-
-        <h2>Восстановление завершено</h2>
-
-        <p>
-            Известные проблемы:
-            <br><br>
-            • всё ещё болеет
-            <br>
-            • иногда упрямится
-            <br><br>
-
-            Исправлено:
-            <br><br>
-            • недостаток поддержки
-            <br>
-            • ощущение одиночества
-            <br><br>
-
-            Дополнительная информация:
-            <br>
-            Маша очень переживает и ждёт,
-            когда ты поправишься.
-        </p>
-
-    </div>
-
+  <div class="btn-row">
+    <button class="yes" onclick="love()">Да</button>
+    <button id="noBtn" class="no">Нет</button>
+  </div>
 </div>
 
-<canvas id="particles"></canvas>
+<div id="screen3" class="screen">
+  <h1>Испытание</h1>
+  <p>Поймай 15 сердечек</p>
+
+  <div id="gameArea"></div>
+  <div id="score">0 / 15</div>
+</div>
+
+<div id="screen4" class="screen">
+  <h1 id="resultTitle"></h1>
+  <p id="resultText"></p>
+
+  <button onclick="final()">Дальше</button>
+</div>
+
+<div id="screen5" class="screen">
+  <img src="images/sasha.jpg" alt="">
+  <h2>Система завершена</h2>
+  <p>Поддержка: Маша</p>
+</div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
