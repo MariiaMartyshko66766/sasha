@@ -2,19 +2,12 @@ let score = 0;
 let running = false;
 let interval;
 
-function vibrate(ms){
-if(navigator.vibrate){
-navigator.vibrate(ms);
-}
-}
-
 function go(n){
 document.querySelectorAll(".screen").forEach(s=>{
 s.classList.remove("active");
 });
 
 document.getElementById("s"+n).classList.add("active");
-vibrate(30);
 }
 
 function startGame(){
@@ -25,11 +18,8 @@ spawn();
 const noBtn = document.getElementById("noBtn");
 
 function moveNo(){
-
-vibrate(20);
-
 const x = Math.random() * (window.innerWidth - 120);
-const y = Math.random() * (window.innerHeight - 200);
+const y = Math.random() * 300;
 
 noBtn.style.left = x + "px";
 noBtn.style.top = y + "px";
@@ -72,8 +62,6 @@ clearInterval(fall);
 },30);
 
 function catchIt(){
-vibrate(25);
-
 score++;
 document.getElementById("score").innerText = score + " / 15";
 h.remove();
@@ -81,7 +69,9 @@ h.remove();
 if(score >= 15){
 clearInterval(interval);
 running = false;
-win();
+go(4);
+document.getElementById("title").innerText = "Победа";
+document.getElementById("text").innerText = "Купон на поцелуй активирован";
 }
 }
 
@@ -89,11 +79,4 @@ h.addEventListener("click", catchIt);
 h.addEventListener("touchstart", catchIt);
 
 },400);
-}
-
-function win(){
-vibrate([80,40,80]);
-document.getElementById("title").innerText = "Победа";
-document.getElementById("text").innerText = "Купон на поцелуй активирован";
-go(4);
 }
