@@ -1,0 +1,170 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#0f172a;
+    color:white;
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.background{
+    position:fixed;
+    inset:0;
+}
+
+.blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(120px);
+}
+
+.blob1{
+    width:400px;
+    height:400px;
+    background:#8b5cf6;
+    top:-100px;
+    left:-100px;
+}
+
+.blob2{
+    width:350px;
+    height:350px;
+    background:#06b6d4;
+    bottom:-100px;
+    right:-100px;
+}
+
+.card{
+    width:min(900px,90%);
+    padding:40px;
+    border-radius:28px;
+    backdrop-filter:blur(25px);
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.1);
+    position:relative;
+    z-index:10;
+}
+
+.hidden{
+    display:none;
+}
+
+.tag{
+    color:#94a3b8;
+    font-size:12px;
+    letter-spacing:2px;
+}
+
+h1{
+    margin-top:15px;
+    margin-bottom:20px;
+    font-size:48px;
+}
+
+p{
+    color:#cbd5e1;
+    line-height:1.8;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    padding:14px 22px;
+    border-radius:14px;
+    margin-top:30px;
+    font-size:15px;
+    font-weight:600;
+}
+
+#startBtn,
+#yesBtn,
+#fixBtn{
+    background:white;
+}
+
+.buttons{
+    margin-top:40px;
+    position:relative;
+    height:250px;
+}
+
+#noBtn{
+    position:absolute;
+    left:220px;
+}
+
+.stats{
+    margin-top:30px;
+}
+
+.stat{
+    margin-bottom:20px;
+}
+
+.bar{
+    margin-top:10px;
+    height:10px;
+    background:rgba(255,255,255,.08);
+    border-radius:999px;
+    overflow:hidden;
+}
+
+.fill{
+    width:20%;
+    height:100%;
+    background:linear-gradient(90deg,#8b5cf6,#06b6d4);
+    transition:.4s;
+}
+
+.image-block{
+    margin-top:25px;
+    height:250px;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.image-block img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.log{
+    margin-top:20px;
+    background:#0b1220;
+    border-radius:16px;
+    padding:15px;
+    min-height:120px;
+    font-family:monospace;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,.75);
+    z-index:999;
+}
+
+.modal-content{
+    width:min(650px,90%);
+    background:#111827;
+    border-radius:24px;
+    padding:30px;
+}
+
+canvas{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+}
