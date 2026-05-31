@@ -18,9 +18,7 @@ padding:20px;
 box-sizing:border-box;
 }
 
-.active{
-display:flex;
-}
+.active{display:flex;}
 
 button{
 padding:16px 22px;
@@ -28,7 +26,6 @@ border:none;
 border-radius:14px;
 font-size:18px;
 margin-top:15px;
-cursor:pointer;
 }
 
 .yes{background:white;color:black;}
@@ -42,15 +39,12 @@ top:60%;
 transform:translate(-50%,-50%);
 }
 
-.box{
-position:relative;
-width:100%;
-height:200px;
-}
+.box{position:relative;height:200px;width:100%;}
 
-#game1,#game2{
+/* HEART GAME */
+#game1{
 width:100%;
-height:55vh;
+height:50vh;
 background:#111a2e;
 border-radius:16px;
 position:relative;
@@ -60,7 +54,28 @@ margin-top:20px;
 
 .heart,.dot{
 position:absolute;
-font-size:28px;
+font-size:26px;
+}
+
+/* TIC TAC TOE */
+#board{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+grid-template-rows:repeat(3,1fr);
+width:80%;
+max-width:300px;
+height:300px;
+gap:8px;
+margin-top:20px;
+}
+
+.cell{
+background:#111a2e;
+border-radius:10px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:40px;
 }
 
 #kiss{
@@ -68,7 +83,6 @@ font-size:90px;
 opacity:0;
 transform:scale(0);
 transition:.4s;
-margin:20px;
 }
 
 #kiss.show{
@@ -80,5 +94,4 @@ img{
 width:70%;
 max-width:280px;
 border-radius:16px;
-margin-top:10px;
 }
