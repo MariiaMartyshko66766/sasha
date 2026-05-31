@@ -1,132 +1,95 @@
-console.log("Саша, не подглядывай в консоль 🙂");
-console.log("Система всё равно знает, что тебя поддерживают.");
+let screen = 1;
 
-const startScreen = document.getElementById("start-screen");
-const questionScreen = document.getElementById("question-screen");
-const dashboard = document.getElementById("dashboard");
+function show(n){
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+document.getElementById("screen"+n).classList.add("active");
+screen=n;
+}
 
-document.getElementById("startBtn").onclick = () => {
-    startScreen.classList.add("hidden");
-    questionScreen.classList.remove("hidden");
-};
-
-document.getElementById("yesBtn").onclick = () => {
-    questionScreen.classList.add("hidden");
-    dashboard.classList.remove("hidden");
-};
+function next(n){
+show(n);
+}
 
 const noBtn = document.getElementById("noBtn");
 
-function moveButton() {
-    const x = Math.random() * (window.innerWidth - 200);
-    const y = Math.random() * (window.innerHeight - 100);
+function moveNo(){
+const x = Math.random() * (window.innerWidth - 120);
+const y = Math.random() * 300;
 
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+noBtn.style.left = x + "px";
+noBtn.style.top = y + "px";
 }
 
-noBtn.addEventListener("mouseenter", moveButton);
-noBtn.addEventListener("touchstart", moveButton);
+noBtn.addEventListener("touchstart", moveNo);
+noBtn.addEventListener("click", moveNo);
 
-const fixes = [
-    "Установлен модуль: горячий чай",
-    "Обнаружена дополнительная поддержка",
-    "Настроение увеличено",
-    "Добавлено +10 к отдыху",
-    "Подключён резервный источник тепла",
-    "Получено сообщение от Маши",
-    "Система стала чувствовать себя лучше",
-    "Исправлена критическая нехватка заботы"
-];
+function love(){
+show(3);
+startGame();
+}
 
-let progress = 20;
-let clicks = 0;
+let score = 0;
 
-const moodBar = document.getElementById("moodBar");
-const energyBar = document.getElementById("energyBar");
-const healthBar = document.getElementById("healthBar");
+function startGame(){
+const area = document.getElementById("gameArea");
 
-const log = document.getElementById("log");
+let interval = setInterval(()=>{
+const h = document.createElement("div");
+h.className = "heart";
+h.innerHTML = "❤️";
 
-document.getElementById("fixBtn").onclick = () => {
+h.style.left = Math.random()*90 + "%";
+h.style.top = "-30px";
 
-    clicks++;
+area.appendChild(h);
 
-    const line = document.createElement("div");
+let fall = setInterval(()=>{
+let top = parseFloat(h.style.top);
+h.style.top = (top + 3) + "px";
 
-    line.textContent =
-        "> " +
-        fixes[Math.floor(Math.random() * fixes.length)];
+if(top > 500){
+h.remove();
+clearInterval(fall);
+}
+},30);
 
-    log.prepend(line);
+h.ontouchstart = ()=>{
+score++;
+document.getElementById("score").innerText = score + " / 15";
+h.remove();
 
-    progress += 8;
-
-    moodBar.style.width = progress + "%";
-    energyBar.style.width = (progress - 5) + "%";
-    healthBar.style.width = (progress + 5) + "%";
-
-    if (clicks === 10) {
-        document.getElementById("finalModal").style.display = "flex";
-        startParticles();
-    }
+if(score >= 15){
+clearInterval(interval);
+win();
+}
 };
 
-function startParticles() {
+h.onclick = ()=>{
+score++;
+document.getElementById("score").innerText = score + " / 15";
+h.remove();
 
-    const canvas =
-        document.getElementById("particles");
+if(score >= 15){
+clearInterval(interval);
+win();
+}
+};
 
-    const ctx =
-        canvas.getContext("2d");
+},500);
+}
 
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
+function win(){
+document.getElementById("resultTitle").innerText = "Победа";
+document.getElementById("resultText").innerText = "Купон на поцелуй активирован";
+show(4);
+}
 
-    const particles = [];
+function lose(){
+document.getElementById("resultTitle").innerText = "Саша лох";
+document.getElementById("resultText").innerText = "но всё равно любим";
+show(4);
+}
 
-    for(let i=0;i<150;i++){
-
-        particles.push({
-            x:Math.random()*canvas.width,
-            y:-20,
-            r:Math.random()*3+2,
-            v:Math.random()*4+1
-        });
-
-    }
-
-    function animate(){
-
-        ctx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-        particles.forEach(p=>{
-
-            ctx.beginPath();
-
-            ctx.arc(
-                p.x,
-                p.y,
-                p.r,
-                0,
-                Math.PI*2
-            );
-
-            ctx.fillStyle="white";
-            ctx.fill();
-
-            p.y += p.v;
-
-        });
-
-        requestAnimationFrame(animate);
-
-    }
-
-    animate();
+function final(){
+show(5);
 }
