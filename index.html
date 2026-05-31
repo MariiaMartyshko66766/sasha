@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Для моего любимого ❤️</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#ffdde1,#ee9ca7);
+    text-align:center;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+h1{
+    color:#fff;
+    font-size:3rem;
+}
+
+p{
+    color:white;
+    max-width:600px;
+    font-size:1.2rem;
+}
+
+button{
+    margin:10px;
+    padding:15px 25px;
+    border:none;
+    border-radius:20px;
+    font-size:18px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+#message{
+    margin-top:20px;
+    color:white;
+    font-size:1.3rem;
+    font-weight:bold;
+}
+
+.heart{
+    position:fixed;
+    font-size:30px;
+    animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+    from{
+        transform:translateY(-50px);
+    }
+    to{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+}
+</style>
+</head>
+<body>
+
+<h1>❤️ Выздоравливай ❤️</h1>
+
+<p>
+Любимый, сейчас тебе тяжело, но ты обязательно поправишься.
+Я рядом и очень тебя люблю. 💖
+</p>
+
+<div>
+<button onclick="hug()">🫂 Обнять</button>
+<button onclick="cheer()">✨ Подбодрить</button>
+<button onclick="hearts()">💗 Сердечки</button>
+</div>
+
+<div id="message"></div>
+
+<script>
+const messages = [
+"Я верю в тебя ❤️",
+"Каждый день ты становишься сильнее 🌟",
+"Ты мой самый любимый человек 💕",
+"Я очень скучаю по тебе 🥺",
+"Скоро всё будет хорошо 🌈",
+"Ты заслуживаешь только счастья ❤️"
+];
+
+function cheer(){
+    document.getElementById("message").textContent =
+        messages[Math.floor(Math.random()*messages.length)];
+}
+
+function hug(){
+    document.getElementById("message").textContent =
+        "Представь огромное тёплое объятие от меня 🫂❤️";
+}
+
+function hearts(){
+    for(let i=0;i<20;i++){
+        const h=document.createElement("div");
+        h.className="heart";
+        h.innerHTML="💖";
+        h.style.left=Math.random()*100+"vw";
+        document.body.appendChild(h);
+
+        setTimeout(()=>h.remove(),3000);
+    }
+}
+</script>
+
+</body>
+</html>
