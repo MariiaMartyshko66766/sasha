@@ -2,45 +2,50 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sasha System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sasha</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="s1" class="screen active">
-  <h1>Система</h1>
-  <p>Саша, входящее сообщение</p>
-  <button onclick="go(2)">Открыть</button>
-</div>
+<div id="app">
 
-<div id="s2" class="screen">
-  <h1>Вопрос</h1>
-  <p>Маша тебе нравится?</p>
-
-  <div class="box">
-    <button class="yes" onclick="startGame()">Да</button>
-    <button id="noBtn" class="no">Нет</button>
+  <div id="s1" class="screen active">
+    <h1>Система</h1>
+    <p>Саша, входящее сообщение</p>
+    <button onclick="go(2)">Открыть</button>
   </div>
-</div>
 
-<div id="s3" class="screen">
-  <h1>Игра</h1>
-  <p>Поймай 15 сердечек</p>
-  <div id="area"></div>
-  <div id="score">0 / 15</div>
-</div>
+  <div id="s2" class="screen">
+    <h1>Вопрос</h1>
+    <p>Маша тебе нравится?</p>
 
-<div id="s4" class="screen">
-  <h1 id="title"></h1>
-  <p id="text"></p>
-  <button onclick="go(5)">Дальше</button>
-</div>
+    <div class="box">
+      <button onclick="startGame()" class="yes">Да</button>
+      <button id="noBtn" class="no">Нет</button>
+    </div>
+  </div>
 
-<div id="s5" class="screen">
-  <img src="images/sasha.jpg" alt="">
-  <h2>Система завершена</h2>
-  <p>Поддержка: Маша</p>
+  <div id="s3" class="screen">
+    <h1>Игра</h1>
+    <p>Поймай 15 сердечек</p>
+
+    <div id="area"></div>
+    <div id="score">0 / 15</div>
+  </div>
+
+  <div id="s4" class="screen">
+    <h1 id="title"></h1>
+    <p id="text"></p>
+    <button onclick="go(5)">Дальше</button>
+  </div>
+
+  <div id="s5" class="screen">
+    <img src="images/sasha.jpg">
+    <h2>Система завершена</h2>
+    <p>Поддержка: Маша</p>
+  </div>
+
 </div>
 
 <script src="script.js"></script>
