@@ -1,20 +1,23 @@
 let score = 0;
-let interval;
 let running = false;
+let interval;
 
-function vibrate(ms = 40){
-if ("vibrate" in navigator) {
+function vibrate(ms){
+if(navigator.vibrate){
 navigator.vibrate(ms);
 }
 }
 
 function go(n){
-document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+document.querySelectorAll(".screen").forEach(s=>{
+s.classList.remove("active");
+});
+
 document.getElementById("s"+n).classList.add("active");
+vibrate(30);
 }
 
 function startGame(){
-vibrate(80);
 go(3);
 spawn();
 }
@@ -25,15 +28,15 @@ function moveNo(){
 
 vibrate(20);
 
-const maxX = window.innerWidth - 120;
-const maxY = 300;
+const x = Math.random() * (window.innerWidth - 120);
+const y = Math.random() * (window.innerHeight - 200);
 
-noBtn.style.left = Math.random()*maxX + "px";
-noBtn.style.top = Math.random()*maxY + "px";
+noBtn.style.left = x + "px";
+noBtn.style.top = y + "px";
 }
 
-noBtn.addEventListener("touchstart", moveNo);
 noBtn.addEventListener("click", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
 
 function spawn(){
 
@@ -49,7 +52,7 @@ h.className = "heart";
 h.innerHTML = "❤️";
 
 let x = Math.random() * (window.innerWidth - 50);
-let y = -30;
+let y = -20;
 
 h.style.left = x + "px";
 h.style.top = y + "px";
@@ -69,7 +72,7 @@ clearInterval(fall);
 },30);
 
 function catchIt(){
-vibrate(30);
+vibrate(25);
 
 score++;
 document.getElementById("score").innerText = score + " / 15";
@@ -89,22 +92,8 @@ h.addEventListener("touchstart", catchIt);
 }
 
 function win(){
-
 vibrate([80,40,80]);
-
 document.getElementById("title").innerText = "Победа";
 document.getElementById("text").innerText = "Купон на поцелуй активирован";
-
 go(4);
-}
-
-function lose(){
-document.getElementById("title").innerText = "Саша лох";
-document.getElementById("text").innerText = "но всё равно любим";
-go(4);
-}
-
-function finish(){
-vibrate(100);
-go(5);
 }
